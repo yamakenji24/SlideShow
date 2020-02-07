@@ -1,3 +1,15 @@
 // Place all the styles related to the Slides controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.container {
+    padding: 40px;
+    background: #419be0;
+    width: auto;
+    height: auto;
+    font-size: 20px;
+}
+.slick-next {
+    width:40px;
+    height: 40px;
+}
