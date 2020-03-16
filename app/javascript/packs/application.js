@@ -9,7 +9,6 @@ require("@rails/activestorage").start()
 require("channels")
 require("jquery");
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -17,6 +16,17 @@ require("jquery");
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 // Support component names relative to this directory:
+import {createConsumer} from '@rails/actioncable';
+import React from 'react';
+import ReactDom from 'react-dom';
+
+(function() {
+  window.App || (window.App = {});
+  //App.cable = createConsumer();
+  App.cable = createConsumer();
+}).call(this);
+
 var componentRequireContext = require.context("components", true);
 var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);
+
