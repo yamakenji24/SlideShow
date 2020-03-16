@@ -7,10 +7,9 @@ class ChatChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def speak(data)
-    sender = User.find(1)
-    #Chat.create(user_id: sender.id, content: message)
-    
-    ActionCable.server.broadcast 'chat_channel', message: data['message']
+  def speak(text)
+    #ChatMessage.create(user_id: sender.id, content: message)
+    params = {action: 'receive_message', comment: text}
+    ActionCable.server.broadcast 'chat_channel', params
   end
 end
