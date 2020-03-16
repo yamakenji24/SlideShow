@@ -2,14 +2,36 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.container {
+.slide-container {
     padding: 40px;
     background: #419be0;
-    width: auto;
-    height: auto;
+    width: 1300px;
+    height: 500px;
     font-size: 20px;
+    float: left;
+    
 }
 .slick-next {
     width:40px;
     height: 40px;
+}
+
+ul {
+    position: absolute;
+    bottom: 0;
+}
+.slick-dots {
+    bottom: 0;
+}
+input#chat {
+    width: 300px;
+    //width: 400%;
+}
+.panel-body {
+    float: right;
+}
+.comment-body {
+    width: auto;
+    height: 500px;
+    overflow: scroll;
 }
