@@ -1,5 +1,5 @@
 class SlidesController < ApplicationController
   def index
-    @chat = ChatMessage.all
+    @chats = ChatMessage.all
   end
 end
