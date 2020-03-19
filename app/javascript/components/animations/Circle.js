@@ -23,15 +23,40 @@ export function Circle(renderer, scene, camera) {
   function change(x, y, z, tmplimit) {
     dx = x, dy = y, dz = z, limit = tmplimit
   }
+  
   function move(target) {
     target.position.z += dz
     target.position.y += dy
     target.position.x += dx
   }
-
+  function moveleftside() {
+    change(-15, 0, 0, -300)
+    if(circleleft.position.x <= limit) {
+      window.cancelAnimationFrame(frameId)
+    } else {
+      move(circleleft)
+      move(circlethird)
+      move(circlefifth)
+      frameId = window.requestAnimationFrame(moveleftside)
+      renderScene(renderer, scene, camera)
+    }
+  }
+  function moverightside() {
+    change(5, 0, 0, 100)
+    if(circlefourth.position.x >= limit) {
+      window.cancelAnimationFrame(frameId)
+    } else {
+      move(circleright)
+      move(circlefourth)
+      frameId = window.requestAnimationFrame(moverightside)
+      renderScene(renderer, scene, camera)
+    }
+  }
   function movefifthRight() {
     if(circlefifth.position.z <= limit) {
       window.cancelAnimationFrame(frameId)
+      moverightside()
+      moveleftside()
     } else {
       move(circlefifth)
       frameId = window.requestAnimationFrame(movefifthRight)
@@ -41,7 +66,8 @@ export function Circle(renderer, scene, camera) {
   function movefourthRight() {
     if(circlefourth.position.z <= limit) {
       window.cancelAnimationFrame(frameId)
-      change(5.9, -0.6, -8, 20)
+      change(6.5, -2, -8, 20)
+      movefifthRight()
     } else {
       move(circlefourth)
       frameId = window.requestAnimationFrame(movefourthRight)
@@ -77,7 +103,6 @@ export function Circle(renderer, scene, camera) {
   function movethirdForward() {
     if(circlethird.position.z >= limit) {
       window.cancelAnimationFrame(frameId)
-      console.log(circlethird.position)
       change(-5.3, 0.5, 9.9, 85)
       movefourthForward()
     } else {
