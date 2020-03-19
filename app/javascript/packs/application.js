@@ -22,7 +22,6 @@ import ReactDom from 'react-dom';
 
 (function() {
   window.App || (window.App = {});
-  //App.cable = createConsumer();
   App.cable = createConsumer();
 }).call(this);
 
