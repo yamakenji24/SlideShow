@@ -1,4 +1,3 @@
-
 {
   "name": "SlideShow",
   "private": true,
@@ -24,6 +23,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.1.3",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^2.3.0",
     "three": "^0.114.0",
     "three.meshline": "^1.2.0",
     "turbolinks": "^5.2.0"
