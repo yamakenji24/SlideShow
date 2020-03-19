@@ -1,8 +1,20 @@
 import { fork, take, put, call, delay } from 'redux-saga/effects';
-import { eventChannel } from 'redux-saga';
+import { eventChannel} from 'redux-saga';
+import io from 'socket.io-client'
 
 import * as types from '../constants/actions';
 
+function createSocketConnection() {
+  const socket = io("http://localhost:8999")
+  return new Promise(resolve => {
+    socket.on('connect', () => {
+      resolve(socket);
+    })
+  })
+}
+function* sendText(socket, text) {
+  yield socket.emit('chat', text)
+}
 function* socketFlow(cable) {
   App = window.App
   yield fork(socketReadFlow, cable, App);
@@ -27,6 +39,8 @@ function* socketReadFlow(cable, App) {
 function* socketNewChatMessage(App) {
   while(typeof x === 'undefined') {
     const {text} = yield take(types.SEND_NEW_CHAT_MESSAGE)
+    const socket = yield call(createSocketConnection)
+    yield call(sendText, socket, text)
     App.chat_channel.perform('speak', {text: text})
   }
 }
