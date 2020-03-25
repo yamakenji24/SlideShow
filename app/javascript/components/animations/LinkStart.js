@@ -14,7 +14,7 @@ class LinkStart extends Component {
     this.renderer.setClearColor('#FFFFFF')
     this.renderer.setSize(1500, 900);
   }
-      
+
   render() {
     return (
       <div>

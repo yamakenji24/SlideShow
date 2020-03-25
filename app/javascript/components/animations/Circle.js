@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import React, { useCallback, useEffect, useRef, useMemo,Component } from 'react'
+import React, { Component } from 'react'
 import {renderScene} from './renderScene';
 
 export function Circle(renderer, scene, camera) {
@@ -45,6 +45,7 @@ export function Circle(renderer, scene, camera) {
     change(5, 0, 0, 100)
     if(circlefourth.position.x >= limit) {
       window.cancelAnimationFrame(frameId)
+      window.location.href = "/slides"
     } else {
       move(circleright)
       move(circlefourth)
