@@ -16,7 +16,11 @@ class App extends Component {
     return(
       <div>
         <SimpleSlider />
-        <Comment newChatMessage={boundActionCreators.newChatMessage} comment={this.props.comment}/>
+        <Comment
+          newChatMessage={boundActionCreators.newChatMessage}
+          comment={this.props.comment}
+          user={this.props.user}
+        />
       </div>
     )
   }

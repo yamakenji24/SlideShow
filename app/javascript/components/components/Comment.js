@@ -7,7 +7,7 @@ export default class Comment extends Component {
 
   submitMessageButton() {
     const text = this.refs.chatText.value
-    this.props.newChatMessage({text: text})
+    this.props.newChatMessage({text: text, user: this.props.user})
   }
 
   getMessages() {
@@ -15,14 +15,17 @@ export default class Comment extends Component {
       
       return (
         <tr key={key}>
-          <td>{value}</td>
+          <td className="user">{value.user} </td>
+          <td>{value.text}</td>
         </tr>
       )
     })
   }
 
-  componentDidUpdate() {
-    console.log(this.props.comment[0])
+  submitenter(e) {
+    if(e.keyCode === 13) {
+      this.submitMessageButton()
+    }
   }
   
   render() {
@@ -36,8 +39,8 @@ export default class Comment extends Component {
             </tbody>
           </table>
         </div>
-        <input type='text' id='chat' ref='chatText' />
-        <button className="btn btn-primary" onClick={this.submitMessageButton.bind(this)}>コメント</button>
+        <input type='text' id='chat' ref='chatText' onKeyDown={(e) => this.submitenter(e)} />
+        <button type="button" className="btn btn-primary" onClick={this.submitMessageButton.bind(this)}>コメント</button>
       </div>
     )
   }
