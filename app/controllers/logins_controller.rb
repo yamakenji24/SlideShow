@@ -4,11 +4,13 @@ class LoginsController < ApplicationController
   end
 
   def new
-
   end
-  
+  def show
+  end
+    
   def create
-    redirect_to slides_path
+    session[:nickname] = params[:user]
+    redirect_to login_url("show")
   end
 
   private
