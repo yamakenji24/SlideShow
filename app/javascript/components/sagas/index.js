@@ -12,8 +12,8 @@ function createSocketConnection() {
     })
   })
 }
-function* sendText(socket, text) {
-  yield socket.emit('chat', text)
+function* sendText(socket, text, user) {
+  yield socket.emit('chat', text, user)
 }
 function* socketFlow(cable) {
   App = window.App
@@ -38,10 +38,10 @@ function* socketReadFlow(cable, App) {
 
 function* socketNewChatMessage(App) {
   while(typeof x === 'undefined') {
-    const {text} = yield take(types.SEND_NEW_CHAT_MESSAGE)
+    const {text, user} = yield take(types.SEND_NEW_CHAT_MESSAGE)
     const socket = yield call(createSocketConnection)
     yield call(sendText, socket, text)
-    App.chat_channel.perform('speak', {text: text})
+    App.chat_channel.perform('speak', {text: text, user:user})
   }
 }
 
