@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   resources :slides
   resources :logins
 
-  root to: 'slides#index'
-  #root to: 'logins#index'
+  #root to: 'slides#index'
+  root to: 'logins#index'
 end
