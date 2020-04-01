@@ -52,7 +52,7 @@ class Cylinder extends Component {
     if(this.cylinder.position.z >= 1100) {
       this.stop()
     } else {
-      this.cylinder.position.z += 15
+      this.cylinder.position.z += 8
       //this.render(this.props.renderer, this.props.scene, this.props.camera)
       renderScene(this.props.renderer, this.props.scene, this.props.camera)
       this.frameId = window.requestAnimationFrame(this.animate)

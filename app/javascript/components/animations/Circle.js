@@ -18,7 +18,7 @@ export function Circle(renderer, scene, camera) {
     scene.add(circleright)
     circleright.position.x = 50
     circleright.position.y = 1
-    dx = -0.4, dy = 0, dz = 10, limit = 90
+    dx = -0.4, dy = 0, dz = 5, limit = 90
   }
   function change(x, y, z, tmplimit) {
     dx = x, dy = y, dz = z, limit = tmplimit
@@ -67,7 +67,7 @@ export function Circle(renderer, scene, camera) {
   function movefourthRight() {
     if(circlefourth.position.z <= limit) {
       window.cancelAnimationFrame(frameId)
-      change(6.5, -2, -8, 20)
+      change(3.25, -1.8, -4, 20)
       movefifthRight()
     } else {
       move(circlefourth)
@@ -78,7 +78,7 @@ export function Circle(renderer, scene, camera) {
   function movethirdRight() {
     if(circlethird.position.z <= limit) {
       window.cancelAnimationFrame(frameId)
-      change(5.9, -0.6, -8, 20)
+      change(2.75, -0.7, -4, 20)
       movefourthRight()
     } else {
       move(circlethird)
@@ -93,7 +93,7 @@ export function Circle(renderer, scene, camera) {
       circlefifth.position.x = -3.6
       circlefifth.position.y = 0
       circlefifth.position.z = 90
-      change(6.5, 2, -8, 20)
+      change(3.25, 0.7, -4, 20)
       movethirdRight()
     } else {
       move(circlefourth)
@@ -104,7 +104,7 @@ export function Circle(renderer, scene, camera) {
   function movethirdForward() {
     if(circlethird.position.z >= limit) {
       window.cancelAnimationFrame(frameId)
-      change(-5.3, 0.5, 9.9, 85)
+      change(-2.5, 0.1, 5, 90)
       movefourthForward()
     } else {
       move(circlethird)
@@ -119,7 +119,7 @@ export function Circle(renderer, scene, camera) {
       scene.add(circlefourth)
       circlefourth.position.x = 50
       circlefourth.position.y = 2
-      change(-0.4, 0, 10, 90)
+      change(-0.2, -0.1, 5, 90)
       movethirdForward()
     } else {
       move(circleright)
@@ -130,7 +130,7 @@ export function Circle(renderer, scene, camera) {
   function moveleftBackward() {
     if(circleleft.position.z <= limit) {
       window.cancelAnimationFrame(frameId)
-      change(5.9, 4, -8, 20)
+      change(3, 1.8, -4, 20)
       moverightBackward()
     } else {
       move(circleleft)
@@ -141,7 +141,7 @@ export function Circle(renderer, scene, camera) {
   function moverightForward() {
     if(circleright.position.z >= limit) {
       window.cancelAnimationFrame(frameId)
-      change(6.5, 6, -8, 20)
+      change(3.4, 2.9, -4, 20)
       moveleftBackward()
     } else {
       move(circleright)
@@ -153,7 +153,7 @@ export function Circle(renderer, scene, camera) {
   function moveleftForward() {
     if(circleleft.position.z >= limit) {
       window.cancelAnimationFrame(frameId)
-      change(-5.3, 0, 9.9, 85)
+      change(-2.7, 0, 5, 85)
       moverightForward()
     } else {
       move(circleleft)
