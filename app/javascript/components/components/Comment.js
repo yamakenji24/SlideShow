@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 
-//import CommentFlow from './CommentFlow';
-
 export default class Comment extends Component {
 
   submitMessageButton() {
@@ -12,7 +10,6 @@ export default class Comment extends Component {
 
   getMessages() {
     return _.map(this.props.comment, (value, key, object) => {
-      
       return (
         <tr key={key}>
           <td className="user">{value.user} </td>

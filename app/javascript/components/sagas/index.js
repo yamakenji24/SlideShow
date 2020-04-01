@@ -4,17 +4,16 @@ import io from 'socket.io-client'
 
 import * as types from '../constants/actions';
 
-function createSocketConnection() {
-  const socket = io("http://localhost:8999")
-  return new Promise(resolve => {
-    socket.on('connect', () => {
-      resolve(socket);
-    })
+function createSocketConnection(text, user) {
+  const socket = io.connect("http://localhost:8999")
+  socket.on('connect', function() {
+    socket.emit('chat', text, user)
+  })
+  socket.on('connect_error', function(err) {
+    socket.close()
   })
 }
-function* sendText(socket, text, user) {
-  yield socket.emit('chat', text, user)
-}
+
 function* socketFlow(cable) {
   App = window.App
   yield fork(socketReadFlow, cable, App);
@@ -30,8 +29,8 @@ function* socketReadFlow(cable, App) {
   while(typeof x === 'undefined') {
     const data = yield take(channel)
     switch(data.action) {
-    case types.RECEIVE_MESSAGE_FROM_CHANNEL:
-      yield put({type: types.SEND_MESSAGE_TO_REDUCER, data: data})
+      case types.RECEIVE_MESSAGE_FROM_CHANNEL:
+        yield put({type: types.SEND_MESSAGE_TO_REDUCER, data: data})
     }
   }
 }
@@ -39,8 +38,7 @@ function* socketReadFlow(cable, App) {
 function* socketNewChatMessage(App) {
   while(typeof x === 'undefined') {
     const {text, user} = yield take(types.SEND_NEW_CHAT_MESSAGE)
-    const socket = yield call(createSocketConnection)
-    yield call(sendText, socket, text)
+    const socket = yield call(createSocketConnection, text, user)
     App.chat_channel.perform('speak', {text: text, user:user})
   }
 }

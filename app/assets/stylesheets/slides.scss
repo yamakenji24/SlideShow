@@ -5,17 +5,12 @@
 .slide-container {
     padding: 40px;
     background: #419be0;
-    width: 1300px;
+    width: 60%;
     height: 500px;
     font-size: 20px;
     float: left;
     
 }
-.slick-next {
-    width:40px;
-    height: 40px;
-}
-
 ul {
     position: absolute;
     bottom: 0;
@@ -25,14 +20,13 @@ ul {
 }
 input#chat {
     width: 300px;
-    //width: 400%;
 }
 .panel-body {
     float: right;
 }
 .comment-body {
-    width: auto;
-    height: 500px;
+    width: 50%;
+    height: 70%;
     overflow: scroll;
 }
 td.user {
