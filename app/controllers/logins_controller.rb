@@ -12,7 +12,4 @@ class LoginsController < ApplicationController
     session[:nickname] = params[:user]
     redirect_to login_url("show")
   end
-
-  private
-  
 end
