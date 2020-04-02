@@ -12,7 +12,6 @@ class App extends Component {
   render() {
     const {dispatch} = this.props
     const boundActionCreators = bindActionCreators(CommentAction, dispatch);
-
     return(
       <div>
         <SimpleSlider />
