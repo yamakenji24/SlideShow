@@ -8,4 +8,8 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track':'reload'
   body
+    nav
+      .navbar-header
+        li = link_to 'TopPage', logins_path, class:'navbar-brand'
+        li = link_to 'ChannelPage', slides_path, class:'navbar-brand'
     = yield
