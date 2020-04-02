@@ -1,2 +1,7 @@
 
-= react_component 'Root', {user: @user}
+#room
+  h2 どの部屋に入りますか？
+  - @rooms.each do |room|
+    li
+      = link_to "ROOM#{room.id}", slide_path(room)
+  

@@ -1,9 +1,10 @@
 class SlidesController < ApplicationController
   def index
-    @user = session[:nickname] != "" ? session[:nickname] : "guest"
+    @rooms = Room.all.order(:id)
   end
 
   def show
-
+    @room = Room.find(params[:id])
+    @user = session[:nickname] != "" ? session[:nickname] : "guest"
   end
 end

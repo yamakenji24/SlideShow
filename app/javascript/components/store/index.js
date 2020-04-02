@@ -8,14 +8,13 @@ import rootReducer from '../reducers';
 // Redux-saga
 import rootSaga from '../sagas';
 
-export default function configureStore() {
+export default function configureStore(room_id) {
   const sagaMiddleware = createSagaMiddleware();
 
   const store = createStore(
     rootReducer,
     applyMiddleware(sagaMiddleware, logger)
   );
-  //sagaMiddleware.run(rootSaga, App.cable);
-  sagaMiddleware.run(rootSaga, "testing");
+  sagaMiddleware.run(rootSaga, room_id);
   return store;
 }
