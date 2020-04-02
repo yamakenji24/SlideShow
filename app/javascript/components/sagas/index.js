@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 import * as types from '../constants/actions';
 
 function createSocketConnection(text, user) {
-  const socket = io.connect("http://localhost:8999")
+ const socket = io.connect("http://localhost:8999")
   socket.on('connect', function() {
     socket.emit('chat', text, user)
   })
@@ -14,18 +14,18 @@ function createSocketConnection(text, user) {
   })
 }
 
-function* socketFlow(cable) {
+function* socketFlow(room_id) {
   App = window.App
-  yield fork(socketReadFlow, cable, App);
-  yield fork(socketWriteFlow, App);
+  yield fork(socketReadFlow, room_id, App);
+  yield fork(socketWriteFlow, room_id, App);
 }
 
-function* socketWriteFlow(App) {
-  yield fork(socketNewChatMessage, App);
+function* socketWriteFlow(room_id, App) {
+  yield fork(socketNewChatMessage, room_id, App);
 }
 
-function* socketReadFlow(cable, App) {
-  const channel = yield call(subscribe, cable, App);
+function* socketReadFlow(room_id, App) {
+  const channel = yield call(subscribe, room_id, App);
   while(typeof x === 'undefined') {
     const data = yield take(channel)
     switch(data.action) {
@@ -35,17 +35,20 @@ function* socketReadFlow(cable, App) {
   }
 }
 
-function* socketNewChatMessage(App) {
+function* socketNewChatMessage(room_id, App) {
   while(typeof x === 'undefined') {
     const {text, user} = yield take(types.SEND_NEW_CHAT_MESSAGE)
     const socket = yield call(createSocketConnection, text, user)
-    App.chat_channel.perform('speak', {text: text, user:user})
+    App.chat_channel.perform('speak', {text: text, user: user, room_id: room_id})
   }
 }
 
-function subscribe(cable, App) {
+function subscribe(room_id, App) {
   return eventChannel((emitter) => {
-    App.chat_channel = App.cable.subscriptions.create("ChatChannel", {
+    App.chat_channel = App.cable.subscriptions.create({
+      channel: "ChatChannel",
+      room: room_id
+    }, {
       connected() {
         console.log('cable connected')
       },
@@ -60,6 +63,6 @@ function subscribe(cable, App) {
   });
 }
 
-export default function* rootSaga(cable) {
-  yield fork(socketFlow, cable);
+export default function* rootSaga(room_id) {
+  yield fork(socketFlow, room_id);
 }
